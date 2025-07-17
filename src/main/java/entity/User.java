@@ -1,7 +1,7 @@
 package entity;
 
 public interface User {
-	String getName();
+    String getName();
 
-	String getPassword();
+    String getPassword();
 }

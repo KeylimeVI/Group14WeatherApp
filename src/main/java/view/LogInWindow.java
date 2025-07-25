@@ -2,7 +2,6 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Button;
-import java.awt.FlowLayout;
 import java.awt.TextField;
 import java.awt.event.ActionListener;
 
@@ -18,6 +17,8 @@ public class LogInWindow implements SoloWindow {
 	private JFrame frame;
 
 	private Button backButton;
+	private QueryC<TextField> queryUsername;
+	private QueryC<TextField> queryPassword;
 
 	private ActionListener actionListener;
 
@@ -40,8 +41,8 @@ public class LogInWindow implements SoloWindow {
 		titleHolder.add(title);
 
 		// ~~~ Question ~~~ //
-		QueryC<TextField> queryUsername = new QueryC<TextField>("Username", new TextField(36));
-		QueryC<TextField> queryPassword = new QueryC<TextField>("Password", new TextField(36));
+		queryUsername = new QueryC<TextField>("Username", new TextField(36));
+		queryPassword = new QueryC<TextField>("Password", new TextField(36));
 
 		JPanel questionHolder = new JPanel();
 		questionHolder.setLayout(new BoxLayout(questionHolder, BoxLayout.Y_AXIS));
@@ -60,6 +61,14 @@ public class LogInWindow implements SoloWindow {
 
 	public Button getBackButton() {
 		return backButton;
+	}
+
+	public String getUsernameString() {
+		return queryUsername.getComponent().getText();
+	}
+
+	public String getPasswordString() {
+		return queryPassword.getComponent().getText();
 	}
 
 	@Override

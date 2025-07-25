@@ -32,13 +32,10 @@ public class ViewManager {
 				Object evtSource = e.getSource();
 
 				if (evtSource == launchWindow.getExitButton()) {
-					System.out.println("Exiting");
 					closeAll();
 				} else if (evtSource == launchWindow.getLogInButton()) {
-					System.out.println("Going to Log In");
 					view(ViewState.LOGIN);
 				} else if (evtSource == launchWindow.getSignUpButton()) {
-					System.out.println("Going to Sign Up");
 					view(ViewState.SIGNUP);
 				}
 			}
@@ -51,7 +48,6 @@ public class ViewManager {
 				Object evtSource = e.getSource();
 
 				if (evtSource == logInWindow.getBackButton()) {
-					System.out.println("Going back to launch window");
 					view(ViewState.LAUNCH);
 				} else if (evtSource == logInWindow.getLogInButton()) {
 					// TODO: access use_case of the software here for actual login
@@ -69,7 +65,6 @@ public class ViewManager {
 				Object evtSource = e.getSource();
 
 				if (evtSource == signUpWindow.getBackButton()) {
-					System.out.println("Going back to launch window");
 					view(ViewState.LAUNCH);
 				}
 			}
@@ -95,6 +90,7 @@ public class ViewManager {
 				signUpWindow.show();
 				break;
 			case MAIN:
+				// TODO: obviously important to have the app actually exist.
 				System.out.println("You've entered the main window");
 				break;
 		}

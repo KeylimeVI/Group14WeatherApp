@@ -4,11 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class LaunchWindow implements SoloWindow {
 	
@@ -40,10 +42,11 @@ public class LaunchWindow implements SoloWindow {
 		frame.setResizable(false);
 		frame.setLayout(new BorderLayout(12, 12));
 
-		// ~~~ Title text ~~~ //
+		// ~~~ Title ~~~ //
 		// TODO: replace with image so it looks nicer rather than just a line of text
-		JLabel launcherTitle = new JLabel("Weather Or Not");
-		launcherTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
+		JLabel title = new JLabel("Weather Or Not");
+		JPanel titleHolder = new JPanel();
+		titleHolder.add(title);
 
 		// ~~~ Buttons ~~~ //
 		logInButton = new Button("Log In");
@@ -56,7 +59,7 @@ public class LaunchWindow implements SoloWindow {
 		buttonPanel.add(signUpButton);
 		buttonPanel.add(exitButton);
 
-		frame.add(launcherTitle, BorderLayout.NORTH);
+		frame.add(titleHolder, BorderLayout.NORTH);
 		frame.add(buttonPanel, BorderLayout.SOUTH);
 	}
 

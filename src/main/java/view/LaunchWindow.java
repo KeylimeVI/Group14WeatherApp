@@ -2,9 +2,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Button;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 

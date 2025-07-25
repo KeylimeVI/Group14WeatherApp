@@ -2,11 +2,16 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Button;
+import java.awt.FlowLayout;
+import java.awt.TextField;
 import java.awt.event.ActionListener;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import view.visual_pattern.QueryC;
 
 public class LogInWindow implements SoloWindow {
 
@@ -26,13 +31,22 @@ public class LogInWindow implements SoloWindow {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		frame.setTitle("Log In");
-		frame.setSize(500, 500);
+		frame.setSize(500, 200);
 		frame.setLayout(new BorderLayout(12, 12));
 
 		// ~~~ Title ~~~ //
 		JLabel title = new JLabel("Log In");
 		JPanel titleHolder = new JPanel();
 		titleHolder.add(title);
+
+		// ~~~ Question ~~~ //
+		QueryC<TextField> queryUsername = new QueryC<TextField>("Username", new TextField(36));
+		QueryC<TextField> queryPassword = new QueryC<TextField>("Password", new TextField(36));
+
+		JPanel questionHolder = new JPanel();
+		questionHolder.setLayout(new BoxLayout(questionHolder, BoxLayout.Y_AXIS));
+		questionHolder.add(queryUsername);
+		questionHolder.add(queryPassword);
 
 		// ~~~ back to launch window ~~~ //
 		JPanel backButtonHolder = new JPanel();
@@ -41,6 +55,7 @@ public class LogInWindow implements SoloWindow {
 		
 		frame.add(titleHolder, BorderLayout.NORTH);
 		frame.add(backButtonHolder, BorderLayout.SOUTH);
+		frame.add(questionHolder, BorderLayout.CENTER);
 	}
 
 	public Button getBackButton() {

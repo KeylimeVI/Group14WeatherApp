@@ -6,24 +6,27 @@ import java.awt.LayoutManager;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class QuestionAndAnswer<C extends Component> extends JPanel {
+public class QueryC<C extends Component> extends JPanel {
 	
 	private String question;
 	private C answer;
 
-	public QuestionAndAnswer(String question, LayoutManager layout) {
+	public QueryC(String question, C answer, LayoutManager layout) {
 		this.question = question;
+		this.answer = answer;
 		this.setLayout(layout);
 		initialize();
 	}
 
-	public QuestionAndAnswer(String question) {
+	public QueryC(String question, C answer) {
 		this.question = question;
+		this.answer = answer;
 		initialize();
 	}
 
 	private void initialize() {
 		JLabel label = new JLabel(question);
+
 		add(label);
 		add(answer);
 	}

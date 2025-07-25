@@ -54,6 +54,7 @@ public class SignUpWindow implements SoloWindow {
 	public void show() {
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
+		frame.toFront();
 	}
 
 	@Override

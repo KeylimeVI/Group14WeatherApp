@@ -51,7 +51,7 @@ public class LogInWindow implements SoloWindow {
 		questionHolder.add(queryUsername);
 		questionHolder.add(queryPassword);
 
-		// ~~~ back to launch window ~~~ //
+		// ~~~ Button ~~~ //
 		ButtonPanel buttonPanel = new ButtonPanel();
 		logInButton = new Button("Log In");
 		backButton = new Button("Back");

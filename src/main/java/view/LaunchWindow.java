@@ -36,7 +36,6 @@ public class LaunchWindow implements SoloWindow {
 
 		frame.setTitle("Weather Or Not");
 		frame.setSize(frameX, frameY);
-		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
 		frame.setLayout(new BorderLayout(12, 12));
 
@@ -76,6 +75,7 @@ public class LaunchWindow implements SoloWindow {
 	@Override
 	public void show() {
 		frame.setVisible(true);
+		frame.setLocationRelativeTo(null);
 	}
 
 	@Override

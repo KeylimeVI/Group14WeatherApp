@@ -26,7 +26,6 @@ public class LogInWindow implements SoloWindow {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		frame.setTitle("Log In");
-		frame.setLocationRelativeTo(null);
 		frame.setSize(500, 500);
 		frame.setLayout(new BorderLayout(12, 12));
 
@@ -51,6 +50,7 @@ public class LogInWindow implements SoloWindow {
 	@Override
 	public void show() {
 		frame.setVisible(true);
+		frame.setLocationRelativeTo(null);
 	}
 
 	@Override

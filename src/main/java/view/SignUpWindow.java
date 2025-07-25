@@ -3,6 +3,8 @@ package view;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class SignUpWindow implements SoloWindow {
 
@@ -21,6 +23,13 @@ public class SignUpWindow implements SoloWindow {
 		frame.setLocationRelativeTo(null);
 		frame.setSize(500, 500);
 		frame.setLayout(new BorderLayout(12, 12));
+
+		// ~~~ Title ~~~ //
+		JLabel title = new JLabel("Sign Up");
+		JPanel titleHolder = new JPanel();
+		titleHolder.add(title);
+
+		frame.add(titleHolder, BorderLayout.NORTH);
 	}
 
 	@Override

@@ -13,7 +13,7 @@ public class ViewManager {
 	private ActionListener signUpListener;
 	
 	public enum ViewState {
-		LAUNCHER, LOGIN, SIGNUP, MAIN
+		LAUNCH, LOGIN, SIGNUP, MAIN
 	}
 	
 	public ViewManager() {
@@ -48,8 +48,12 @@ public class ViewManager {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+				Object evtSource = e.getSource();
+
+				if (evtSource == logInWindow.getBackButton()) {
+					System.out.println("Going back to launch window");
+					view(ViewState.LAUNCH);
+				}
 			}
 			
 		};
@@ -57,20 +61,26 @@ public class ViewManager {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+				Object evtSource = e.getSource();
+
+				if (evtSource == signUpWindow.getBackButton()) {
+					System.out.println("Going back to launch window");
+					view(ViewState.LAUNCH);
+				}
 			}
 			
 		};
 
 		launchWindow.setActionListener(launchListener);
+		logInWindow.setActionListener(logInListener);
+		signUpWindow.setActionListener(signUpListener);
 	}
 
 	public void view(ViewState viewState) {
 		hideAll();
 		
 		switch (viewState) {
-			case LAUNCHER:
+			case LAUNCH:
 				launchWindow.show();
 				break;
 			case LOGIN:

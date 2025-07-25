@@ -63,18 +63,6 @@ public class LaunchWindow implements SoloWindow {
 		frame.add(buttonPanel, BorderLayout.SOUTH);
 	}
 
-	public void setActionListener(ActionListener actionListener) {
-		this.actionListener = actionListener;
-
-		logInButton.addActionListener(actionListener);
-		signUpButton.addActionListener(actionListener);
-		exitButton.addActionListener(actionListener);
-	}
-
-	public ActionListener getActionListener() {
-		return actionListener;
-	}
-
 	public Button getLogInButton() {
 		return logInButton;
 	}
@@ -101,5 +89,19 @@ public class LaunchWindow implements SoloWindow {
 	public void close() {
 		frame.setVisible(false);
 		frame.dispose();
+	}
+
+	@Override
+	public void setActionListener(ActionListener actionListener) {
+		this.actionListener = actionListener;
+
+		logInButton.addActionListener(actionListener);
+		signUpButton.addActionListener(actionListener);
+		exitButton.addActionListener(actionListener);
+	}
+
+	@Override
+	public ActionListener getActionListener() {
+		return actionListener;
 	}
 }

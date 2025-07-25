@@ -11,7 +11,7 @@ public class Launcher {
 			@Override
 			public void run() {
 				ViewManager viewManager = new ViewManager();
-				viewManager.view(ViewManager.ViewState.LAUNCHER);
+				viewManager.view(ViewManager.ViewState.LAUNCH);
 			}
 		});
 	}

@@ -1,6 +1,8 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Button;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -9,6 +11,10 @@ import javax.swing.JPanel;
 public class SignUpWindow implements SoloWindow {
 
 	private JFrame frame;
+
+	private Button backButton;
+
+	private ActionListener actionListener;
 
 	public SignUpWindow() {
 		initialize();
@@ -30,6 +36,18 @@ public class SignUpWindow implements SoloWindow {
 		titleHolder.add(title);
 
 		frame.add(titleHolder, BorderLayout.NORTH);
+
+		// ~~~ back to launch window ~~~ //
+		JPanel backButtonHolder = new JPanel();
+		backButton = new Button("Back");
+		backButtonHolder.add(backButton);
+		
+		frame.add(titleHolder, BorderLayout.NORTH);
+		frame.add(backButtonHolder, BorderLayout.SOUTH);
+	}
+
+	public Button getBackButton() {
+		return backButton;
 	}
 
 	@Override
@@ -46,5 +64,16 @@ public class SignUpWindow implements SoloWindow {
 	public void close() {
 		frame.setVisible(false);
 		frame.dispose();
+	}
+
+	@Override
+	public void setActionListener(ActionListener actionListener) {
+		this.actionListener = actionListener;
+		backButton.addActionListener(actionListener);
+	}
+
+	@Override
+	public ActionListener getActionListener() {
+		return actionListener;
 	}
 }

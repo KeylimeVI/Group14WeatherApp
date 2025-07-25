@@ -1,7 +1,8 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
+import java.awt.Button;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -10,6 +11,10 @@ import javax.swing.JPanel;
 public class LogInWindow implements SoloWindow {
 
 	private JFrame frame;
+
+	private Button backButton;
+
+	private ActionListener actionListener;
 
 	public LogInWindow() {
 		initialize();
@@ -29,8 +34,18 @@ public class LogInWindow implements SoloWindow {
 		JLabel title = new JLabel("Log In");
 		JPanel titleHolder = new JPanel();
 		titleHolder.add(title);
+
+		// ~~~ back to launch window ~~~ //
+		JPanel backButtonHolder = new JPanel();
+		backButton = new Button("Back");
+		backButtonHolder.add(backButton);
 		
 		frame.add(titleHolder, BorderLayout.NORTH);
+		frame.add(backButtonHolder, BorderLayout.SOUTH);
+	}
+
+	public Button getBackButton() {
+		return backButton;
 	}
 
 	@Override
@@ -47,5 +62,16 @@ public class LogInWindow implements SoloWindow {
 	public void close() {
 		frame.setVisible(false);
 		frame.dispose();
+	}
+
+	@Override
+	public void setActionListener(ActionListener actionListener) {
+		this.actionListener = actionListener;
+		backButton.addActionListener(actionListener);
+	}
+
+	@Override
+	public ActionListener getActionListener() {
+		return actionListener;
 	}
 }

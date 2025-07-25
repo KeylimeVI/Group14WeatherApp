@@ -1,6 +1,10 @@
 package view;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Button;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
@@ -39,6 +43,7 @@ public class LaunchWindow implements SoloWindow {
 		// ~~~ Title text ~~~ //
 		// TODO: replace with image so it looks nicer rather than just a line of text
 		JLabel launcherTitle = new JLabel("Weather Or Not");
+		launcherTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 		// ~~~ Buttons ~~~ //
 		logInButton = new Button("Log In");

@@ -10,6 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import view.visual_pattern.ButtonPanel;
+
 public class LaunchWindow implements SoloWindow {
 	
 	private JFrame frame;

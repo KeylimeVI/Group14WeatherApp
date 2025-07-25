@@ -1,4 +1,4 @@
-package view;
+package view.visual_pattern;
 
 import java.awt.Button;
 import java.awt.FlowLayout;

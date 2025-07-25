@@ -1,0 +1,99 @@
+package view;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class ViewManager {
+	private LaunchWindow launchWindow;
+	private LogInWindow logInWindow;
+	private SignUpWindow signUpWindow;
+
+	private ActionListener launchListener;
+	private ActionListener logInListener;
+	private ActionListener signUpListener;
+	
+	public enum ViewState {
+		LAUNCHER, LOGIN, SIGNUP, MAIN
+	}
+	
+	public ViewManager() {
+		initialize();
+	}
+
+	private void initialize() {
+		launchWindow = new LaunchWindow();
+		logInWindow = new LogInWindow();
+		signUpWindow = new SignUpWindow();
+
+		launchListener = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Object evtSource = e.getSource();
+
+				if (evtSource == launchWindow.getExitButton()) {
+					System.out.println("Exiting");
+					closeAll();
+				} else if (evtSource == launchWindow.getLogInButton()) {
+					System.out.println("Going to Log In");
+					view(ViewState.LOGIN);
+				} else if (evtSource == launchWindow.getSignUpButton()) {
+					System.out.println("Going to Sign Up");
+					view(ViewState.SIGNUP);
+				}
+			}
+			
+		};
+		logInListener = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+			}
+			
+		};
+		signUpListener = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+			}
+			
+		};
+
+		launchWindow.setActionListener(launchListener);
+	}
+
+	public void view(ViewState viewState) {
+		hideAll();
+		
+		switch (viewState) {
+			case LAUNCHER:
+				launchWindow.show();
+				break;
+			case LOGIN:
+				logInWindow.show();
+				break;
+			case SIGNUP:
+				signUpWindow.show();
+				break;
+			case MAIN:
+				System.out.println("You've entered the main window");
+				break;
+		}
+	}
+
+	public void hideAll() {
+		launchWindow.hide();
+		logInWindow.hide();
+		signUpWindow.hide();
+	}
+
+	public void closeAll() {
+		launchWindow.close();
+		logInWindow.close();
+		signUpWindow.close();
+	}
+}

@@ -2,7 +2,7 @@ package app;
 
 import javax.swing.SwingUtilities;
 
-import view.LaunchWindow;
+import view.ViewManager;
 
 public class Launcher {
 	
@@ -10,8 +10,8 @@ public class Launcher {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				LaunchWindow launch = new LaunchWindow();
-				launch.show();
+				ViewManager viewManager = new ViewManager();
+				viewManager.view(ViewManager.ViewState.LAUNCHER);
 			}
 		});
 	}

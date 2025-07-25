@@ -42,7 +42,7 @@ public class LogInWindow implements SoloWindow {
 		JPanel titleHolder = new JPanel();
 		titleHolder.add(title);
 
-		// ~~~ Question ~~~ //
+		// ~~~ Questions ~~~ //
 		queryUsername = new QueryC<TextField>("Username", new TextField(36));
 		queryPassword = new QueryC<TextField>("Password", new TextField(36));
 
@@ -51,7 +51,7 @@ public class LogInWindow implements SoloWindow {
 		questionHolder.add(queryUsername);
 		questionHolder.add(queryPassword);
 
-		// ~~~ Button ~~~ //
+		// ~~~ Buttons ~~~ //
 		ButtonPanel buttonPanel = new ButtonPanel();
 		logInButton = new Button("Log In");
 		backButton = new Button("Back");

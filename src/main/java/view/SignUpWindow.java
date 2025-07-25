@@ -8,10 +8,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import view.visual_pattern.ButtonPanel;
+
 public class SignUpWindow implements SoloWindow {
 
 	private JFrame frame;
 
+	private Button signUpButton;
 	private Button backButton;
 
 	private ActionListener actionListener;
@@ -27,7 +30,7 @@ public class SignUpWindow implements SoloWindow {
 
 		frame.setTitle("Sign Up");
 		frame.setLocationRelativeTo(null);
-		frame.setSize(500, 500);
+		frame.setSize(500, 200);
 		frame.setLayout(new BorderLayout(12, 12));
 
 		// ~~~ Title ~~~ //
@@ -37,13 +40,16 @@ public class SignUpWindow implements SoloWindow {
 
 		frame.add(titleHolder, BorderLayout.NORTH);
 
-		// ~~~ back to launch window ~~~ //
-		JPanel backButtonHolder = new JPanel();
+		// ~~~ Buttons ~~~ //
+		ButtonPanel buttonPanel = new ButtonPanel();
+		signUpButton = new Button("Sign Up");
 		backButton = new Button("Back");
-		backButtonHolder.add(backButton);
+		
+		buttonPanel.add(signUpButton);
+		buttonPanel.add(backButton);
 		
 		frame.add(titleHolder, BorderLayout.NORTH);
-		frame.add(backButtonHolder, BorderLayout.SOUTH);
+		frame.add(buttonPanel, BorderLayout.SOUTH);
 	}
 
 	public Button getBackButton() {

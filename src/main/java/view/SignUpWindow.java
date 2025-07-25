@@ -52,6 +52,10 @@ public class SignUpWindow implements SoloWindow {
 		frame.add(buttonPanel, BorderLayout.SOUTH);
 	}
 
+	public Button getSignUpButton() {
+		return signUpButton;
+	}
+
 	public Button getBackButton() {
 		return backButton;
 	}
@@ -77,6 +81,8 @@ public class SignUpWindow implements SoloWindow {
 	@Override
 	public void setActionListener(ActionListener actionListener) {
 		this.actionListener = actionListener;
+
+		signUpButton.addActionListener(actionListener);
 		backButton.addActionListener(actionListener);
 	}
 

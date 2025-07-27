@@ -18,6 +18,10 @@ public class Launcher {
 			@Override
 			public void run() {
 				ViewManager viewManager = new ViewManager();
+
+				viewManager.setLogInController(logInController);
+				viewManager.setSignUpController(signUpController);
+
 				viewManager.view(ViewManager.ViewState.LAUNCH);
 			}
 		});

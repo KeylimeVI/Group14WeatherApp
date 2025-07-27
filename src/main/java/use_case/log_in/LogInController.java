@@ -1,12 +1,6 @@
 package use_case.log_in;
 
-public class LogInController {
-	
-	public LogInController() {
-		initialize();
-	}
+public interface LogInController {
 
-	private void initialize() {
-		// TODO
-	}
+	public boolean attemptLogIn(String username, String password);
 }

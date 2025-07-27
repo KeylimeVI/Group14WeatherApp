@@ -1,12 +1,6 @@
 package use_case.sign_up;
 
-public class SignUpController {
-	
-	public SignUpController() {
-		initialize();
-	}
+public interface SignUpController {
 
-	private void initialize() {
-		// TODO
-	}
+	public boolean attemptSignUp(String username, String password);
 }

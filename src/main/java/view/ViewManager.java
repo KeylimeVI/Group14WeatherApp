@@ -3,6 +3,9 @@ package view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import use_case.log_in.LogInController;
+import use_case.sign_up.SignUpController;
+
 public class ViewManager {
 	private LaunchWindow launchWindow;
 	private LogInWindow logInWindow;
@@ -11,6 +14,9 @@ public class ViewManager {
 	private ActionListener launchListener;
 	private ActionListener logInListener;
 	private ActionListener signUpListener;
+
+	private LogInController logInController;
+	private SignUpController signUpController;
 	
 	public enum ViewState {
 		LAUNCH, LOGIN, SIGNUP, MAIN
@@ -50,10 +56,10 @@ public class ViewManager {
 				if (evtSource == logInWindow.getBackButton()) {
 					view(ViewState.LAUNCH);
 				} else if (evtSource == logInWindow.getLogInButton()) {
-					// TODO: access use_case of the software here for actual login
-					// this is just a place holder to print some stuff as an example
-					System.out.println("You are:\t\t" + logInWindow.getUsernameString());
-					System.out.println("Your password is:\t" + "*".repeat(logInWindow.getPasswordString().length()));
+					String username = logInWindow.getUsernameString();
+					String password = logInWindow.getPasswordString();
+					
+					logInController.attemptLogIn(username, password);
 				}
 			}
 			
@@ -106,5 +112,13 @@ public class ViewManager {
 		launchWindow.close();
 		logInWindow.close();
 		signUpWindow.close();
+	}
+
+	public void setLogInController(LogInController logInController) {
+		this.logInController = logInController;
+	}
+
+	public void setSignUpController(SignUpController signUpController) {
+		this.signUpController = signUpController;
 	}
 }

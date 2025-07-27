@@ -2,13 +2,16 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Button;
+import java.awt.TextField;
 import java.awt.event.ActionListener;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import view.visual_pattern.ButtonPanel;
+import view.visual_pattern.QueryC;
 
 public class SignUpWindow implements SoloWindow {
 
@@ -16,6 +19,8 @@ public class SignUpWindow implements SoloWindow {
 
 	private Button signUpButton;
 	private Button backButton;
+	private QueryC<TextField> queryUsername;
+	private QueryC<TextField> queryPassword;
 
 	private ActionListener actionListener;
 
@@ -38,7 +43,14 @@ public class SignUpWindow implements SoloWindow {
 		JPanel titleHolder = new JPanel();
 		titleHolder.add(title);
 
-		frame.add(titleHolder, BorderLayout.NORTH);
+		// ~~~ Questions ~~~ //
+		queryUsername = new QueryC<TextField>("Username", new TextField(36));
+		queryPassword = new QueryC<TextField>("Password", new TextField(36));
+
+		JPanel questionHolder = new JPanel();
+		questionHolder.setLayout(new BoxLayout(questionHolder, BoxLayout.Y_AXIS));
+		questionHolder.add(queryUsername);
+		questionHolder.add(queryPassword);
 
 		// ~~~ Buttons ~~~ //
 		ButtonPanel buttonPanel = new ButtonPanel();
@@ -49,6 +61,7 @@ public class SignUpWindow implements SoloWindow {
 		buttonPanel.add(backButton);
 		
 		frame.add(titleHolder, BorderLayout.NORTH);
+		frame.add(questionHolder, BorderLayout.CENTER);
 		frame.add(buttonPanel, BorderLayout.SOUTH);
 	}
 
@@ -58,6 +71,14 @@ public class SignUpWindow implements SoloWindow {
 
 	public Button getBackButton() {
 		return backButton;
+	}
+
+	public String getUsernameString() {
+		return queryUsername.getComponent().getText();
+	}
+
+	public String getPasswordString() {
+		return queryPassword.getComponent().getText();
 	}
 
 	@Override

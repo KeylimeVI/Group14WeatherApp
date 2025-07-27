@@ -72,6 +72,11 @@ public class ViewManager {
 
 				if (evtSource == signUpWindow.getBackButton()) {
 					view(ViewState.LAUNCH);
+				} else if (evtSource == signUpWindow.getSignUpButton()) {
+					String username = signUpWindow.getUsernameString();
+					String password = signUpWindow.getPasswordString();
+
+					signUpController.attemptSignUp(username, password);
 				}
 			}
 			

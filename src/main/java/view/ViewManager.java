@@ -61,7 +61,8 @@ public class ViewManager {
 				break;
 			case MAIN:
 				mainWindow = MainWindowLoader.makeMainWindow();
-				mainWindow.setActionListener(makeMainWindowListener());
+				mainWindowListener = makeMainWindowListener();
+				mainWindow.setActionListener(mainWindowListener);
 				mainWindow.show();
 				break;
 		}

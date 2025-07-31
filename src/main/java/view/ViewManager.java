@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import use_case.log_in.LogInController;
 import use_case.sign_up.SignUpController;
+import view.app_windows.MainWindow;
 
 public class ViewManager {
 	private LaunchWindow launchWindow;
@@ -133,5 +134,12 @@ public class ViewManager {
 
 	public void setSignUpController(SignUpController signUpController) {
 		this.signUpController = signUpController;
+	}
+}
+
+class MainWindowLoader {
+	
+	public static MainWindow makeMainWindow() {
+		return new MainWindow();
 	}
 }

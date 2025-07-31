@@ -31,56 +31,9 @@ public class ViewManager {
 		logInWindow = new LogInWindow();
 		signUpWindow = new SignUpWindow();
 
-		launchListener = new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Object evtSource = e.getSource();
-
-				if (evtSource == launchWindow.getExitButton()) {
-					closeAll();
-				} else if (evtSource == launchWindow.getLogInButton()) {
-					view(ViewState.LOGIN);
-				} else if (evtSource == launchWindow.getSignUpButton()) {
-					view(ViewState.SIGNUP);
-				}
-			}
-			
-		};
-		logInListener = new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Object evtSource = e.getSource();
-
-				if (evtSource == logInWindow.getBackButton()) {
-					view(ViewState.LAUNCH);
-				} else if (evtSource == logInWindow.getLogInButton()) {
-					String username = logInWindow.getUsernameString();
-					String password = logInWindow.getPasswordString();
-					
-					logInController.attemptLogIn(username, password);
-				}
-			}
-			
-		};
-		signUpListener = new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Object evtSource = e.getSource();
-
-				if (evtSource == signUpWindow.getBackButton()) {
-					view(ViewState.LAUNCH);
-				} else if (evtSource == signUpWindow.getSignUpButton()) {
-					String username = signUpWindow.getUsernameString();
-					String password = signUpWindow.getPasswordString();
-
-					signUpController.attemptSignUp(username, password);
-				}
-			}
-			
-		};
+		launchListener = makeLaunchListener();
+		logInListener = makeLogInListener();
+		signUpListener = makeSignUpListener();
 
 		launchWindow.setActionListener(launchListener);
 		logInWindow.setActionListener(logInListener);
@@ -105,6 +58,61 @@ public class ViewManager {
 				System.out.println("You've entered the main window");
 				break;
 		}
+	}
+
+	private ActionListener makeLaunchListener() {
+		return new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Object evtSource = e.getSource();
+
+				if (evtSource == launchWindow.getExitButton()) {
+					closeAll();
+				} else if (evtSource == launchWindow.getLogInButton()) {
+					view(ViewState.LOGIN);
+				} else if (evtSource == launchWindow.getSignUpButton()) {
+					view(ViewState.SIGNUP);
+				}
+			}
+		};
+	}
+
+	private ActionListener makeLogInListener() {
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Object evtSource = e.getSource();
+
+				if (evtSource == logInWindow.getBackButton()) {
+					view(ViewState.LAUNCH);
+				} else if (evtSource == logInWindow.getLogInButton()) {
+					String username = logInWindow.getUsernameString();
+					String password = logInWindow.getPasswordString();
+					
+					logInController.attemptLogIn(username, password);
+				}
+			}
+		};
+	}
+
+	private ActionListener makeSignUpListener() {
+		return new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Object evtSource = e.getSource();
+
+				if (evtSource == signUpWindow.getBackButton()) {
+					view(ViewState.LAUNCH);
+				} else if (evtSource == signUpWindow.getSignUpButton()) {
+					String username = signUpWindow.getUsernameString();
+					String password = signUpWindow.getPasswordString();
+
+					signUpController.attemptSignUp(username, password);
+				}
+			}
+		};
 	}
 
 	public void hideAll() {

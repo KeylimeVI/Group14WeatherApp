@@ -1,17 +1,29 @@
 package view.app_windows;
 
 import java.awt.BorderLayout;
+import java.awt.Button;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
 import view.SoloWindow;
+import view.visual_pattern.ButtonPanel;
 
 public class MainWindow implements SoloWindow {
 
 	private JFrame frame;
+
+	private Button exitButton;
+
+	private ActionListener actionListener;
+
+	public enum MainAction {
+		EXIT
+	}
+	private MainAction currentAction = MainAction.EXIT;
 
 	public MainWindow() {
 		initialize();
@@ -20,7 +32,7 @@ public class MainWindow implements SoloWindow {
 	private void initialize() {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int frameY = (int) screenSize.getHeight() / 2;
-		int frameX = (int) ((double) frameY / 1.5);
+		int frameX = (int) ((double) frameY * 1.5);
 
 		frame = new JFrame();
 
@@ -30,11 +42,33 @@ public class MainWindow implements SoloWindow {
 		frame.setSize(frameX, frameY);
 		frame.setResizable(false);
 		frame.setLayout(new BorderLayout(12, 12));
+
+		// ~~~ Exit Button ~~~ //
+		exitButton = new Button("Exit");
+		exitButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				currentAction = MainAction.EXIT;
+			}
+		});
+
+		ButtonPanel buttonPanel = new ButtonPanel();
+
+		buttonPanel.add(exitButton);
+
+		frame.add(buttonPanel, BorderLayout.SOUTH);
+	}
+
+	public MainAction getAction() {
+		return currentAction;
 	}
 
 	@Override
 	public void show() {
 		frame.setVisible(true);
+		frame.setLocationRelativeTo(null);
+		frame.toFront();
 	}
 
 	@Override
@@ -44,20 +78,22 @@ public class MainWindow implements SoloWindow {
 
 	@Override
 	public void close() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'close'");
+		frame.setVisible(false);
+		frame.dispose();
 	}
 
 	@Override
 	public void setActionListener(ActionListener actionListener) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setActionListener'");
+
+		this.actionListener = actionListener;
+
+		exitButton.addActionListener(actionListener);
 	}
 
 	@Override
 	public ActionListener getActionListener() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getActionListener'");
+		
+		return actionListener;
 	}
 	
 }

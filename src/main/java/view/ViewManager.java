@@ -6,15 +6,20 @@ import java.awt.event.ActionListener;
 import use_case.log_in.LogInController;
 import use_case.sign_up.SignUpController;
 import view.app_windows.MainWindow;
+import view.app_windows.TimelineWindow;
 
 public class ViewManager {
 	private LaunchWindow launchWindow;
 	private LogInWindow logInWindow;
 	private SignUpWindow signUpWindow;
 
+	private MainWindow mainWindow;
+
 	private ActionListener launchListener;
 	private ActionListener logInListener;
 	private ActionListener signUpListener;
+
+	private ActionListener mainWindowListener;
 
 	private LogInController logInController;
 	private SignUpController signUpController;
@@ -55,8 +60,9 @@ public class ViewManager {
 				signUpWindow.show();
 				break;
 			case MAIN:
-				// TODO: obviously important to have the app actually exist.
-				System.out.println("You've entered the main window");
+				mainWindow = MainWindowLoader.makeMainWindow();
+				mainWindow.setActionListener(makeMainWindowListener());
+				mainWindow.show();
 				break;
 		}
 	}
@@ -91,7 +97,9 @@ public class ViewManager {
 					String username = logInWindow.getUsernameString();
 					String password = logInWindow.getPasswordString();
 					
-					logInController.attemptLogIn(username, password);
+					if (logInController.attemptLogIn(username, password)) {
+						view(ViewState.MAIN);
+					}
 				}
 			}
 		};
@@ -116,6 +124,21 @@ public class ViewManager {
 		};
 	}
 
+	private ActionListener makeMainWindowListener() {
+		return new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				switch (mainWindow.getAction()) {
+					case EXIT:
+						closeAll();
+						closeAllMain();
+				}
+			}
+		};
+	}
+
 	public void hideAll() {
 		launchWindow.hide();
 		logInWindow.hide();
@@ -126,6 +149,10 @@ public class ViewManager {
 		launchWindow.close();
 		logInWindow.close();
 		signUpWindow.close();
+	}
+
+	public void closeAllMain() {
+		mainWindow.close();
 	}
 
 	public void setLogInController(LogInController logInController) {
@@ -141,5 +168,9 @@ class MainWindowLoader {
 	
 	public static MainWindow makeMainWindow() {
 		return new MainWindow();
+	}
+
+	public static TimelineWindow makeTimelineWindow() {
+		return new TimelineWindow();
 	}
 }

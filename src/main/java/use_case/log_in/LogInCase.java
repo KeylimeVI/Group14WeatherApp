@@ -15,6 +15,8 @@ public class LogInCase implements LogInController {
 		System.out.println("You are:\t\t" + username);
 		System.out.println("Your password is:\t" + "*".repeat(password.length()));
 
-		return false;
+		System.out.println("LogInCase is not implemented properly yet.");
+
+		return true;
 	}
 }

@@ -1,5 +1,8 @@
 package view.app_windows;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
@@ -15,19 +18,28 @@ public class MainWindow implements SoloWindow {
 	}
 
 	private void initialize() {
-		
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		int frameY = (int) screenSize.getHeight() / 2;
+		int frameX = (int) ((double) frameY / 1.5);
+
+		frame = new JFrame();
+
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		frame.setTitle("Weather Or Not");
+		frame.setSize(frameX, frameY);
+		frame.setResizable(false);
+		frame.setLayout(new BorderLayout(12, 12));
 	}
 
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'show'");
+		frame.setVisible(true);
 	}
 
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'hide'");
+		frame.setVisible(false);
 	}
 
 	@Override

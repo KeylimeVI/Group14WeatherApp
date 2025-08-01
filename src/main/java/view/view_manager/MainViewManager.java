@@ -47,7 +47,7 @@ public abstract class MainViewManager {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				// TODO: add actions for MainWindow
 				switch (mainWindow.getAction()) {
 					case EXIT:
 						closeAllMain();
@@ -61,6 +61,7 @@ public abstract class MainViewManager {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				// TODO: add actions for TimelineWindow
 				throw new UnsupportedOperationException("timelineWindowListener has no ears");
 			}
 		};

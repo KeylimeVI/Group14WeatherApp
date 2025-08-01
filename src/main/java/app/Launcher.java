@@ -4,7 +4,8 @@ import javax.swing.SwingUtilities;
 
 import use_case.log_in.LogInController;
 import use_case.sign_up.SignUpController;
-import view.ViewManager;
+import view.view_manager.LaunchViewManager;
+import view.view_manager.ViewManager;
 
 public class Launcher {
 	
@@ -19,10 +20,12 @@ public class Launcher {
 			public void run() {
 				ViewManager viewManager = new ViewManager();
 
-				viewManager.setLogInController(logInController);
-				viewManager.setSignUpController(signUpController);
+				LaunchViewManager launchViewManager = viewManager.getLaunchViewManager();
 
-				viewManager.view(ViewManager.ViewState.LAUNCH);
+				launchViewManager.setLogInController(logInController);
+				launchViewManager.setSignUpController(signUpController);
+
+				launchViewManager.view(LaunchViewManager.ViewState.LAUNCH);
 			}
 		});
 	}

@@ -1,25 +1,23 @@
-package view;
+package view.view_manager;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import use_case.log_in.LogInController;
 import use_case.sign_up.SignUpController;
-import view.app_windows.MainWindow;
-import view.app_windows.TimelineWindow;
+import view.LaunchWindow;
+import view.LogInWindow;
+import view.SignUpWindow;
 
-public class ViewManager {
+public abstract class LaunchViewManager {
+
 	private LaunchWindow launchWindow;
 	private LogInWindow logInWindow;
 	private SignUpWindow signUpWindow;
 
-	private MainWindow mainWindow;
-
 	private ActionListener launchListener;
 	private ActionListener logInListener;
 	private ActionListener signUpListener;
-
-	private ActionListener mainWindowListener;
 
 	private LogInController logInController;
 	private SignUpController signUpController;
@@ -27,8 +25,8 @@ public class ViewManager {
 	public enum ViewState {
 		LAUNCH, LOGIN, SIGNUP, MAIN
 	}
-	
-	public ViewManager() {
+
+	public LaunchViewManager() {
 		initialize();
 	}
 
@@ -46,27 +44,7 @@ public class ViewManager {
 		signUpWindow.setActionListener(signUpListener);
 	}
 
-	public void view(ViewState viewState) {
-		hideAll();
-		
-		switch (viewState) {
-			case LAUNCH:
-				launchWindow.show();
-				break;
-			case LOGIN:
-				logInWindow.show();
-				break;
-			case SIGNUP:
-				signUpWindow.show();
-				break;
-			case MAIN:
-				mainWindow = MainWindowLoader.makeMainWindow();
-				mainWindowListener = makeMainWindowListener();
-				mainWindow.setActionListener(mainWindowListener);
-				mainWindow.show();
-				break;
-		}
-	}
+	public abstract void view(ViewState viewState);
 
 	private ActionListener makeLaunchListener() {
 		return new ActionListener() {
@@ -125,21 +103,6 @@ public class ViewManager {
 		};
 	}
 
-	private ActionListener makeMainWindowListener() {
-		return new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				switch (mainWindow.getAction()) {
-					case EXIT:
-						closeAll();
-						closeAllMain();
-				}
-			}
-		};
-	}
-
 	public void hideAll() {
 		launchWindow.hide();
 		logInWindow.hide();
@@ -152,10 +115,6 @@ public class ViewManager {
 		signUpWindow.close();
 	}
 
-	public void closeAllMain() {
-		mainWindow.close();
-	}
-
 	public void setLogInController(LogInController logInController) {
 		this.logInController = logInController;
 	}
@@ -163,15 +122,16 @@ public class ViewManager {
 	public void setSignUpController(SignUpController signUpController) {
 		this.signUpController = signUpController;
 	}
-}
 
-class MainWindowLoader {
-	
-	public static MainWindow makeMainWindow() {
-		return new MainWindow();
+	public LaunchWindow getLaunchWindow() {
+		return launchWindow;
 	}
 
-	public static TimelineWindow makeTimelineWindow() {
-		return new TimelineWindow();
+	public LogInWindow getLogInWindow() {
+		return logInWindow;
+	}
+
+	public SignUpWindow getSignUpWindow() {
+		return signUpWindow;
 	}
 }

@@ -11,16 +11,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import view.visual_pattern.ButtonPanel;
+import view.visual_pattern.SoloWindow;
 
-public class LaunchWindow implements SoloWindow {
-	
-	private JFrame frame;
+public class LaunchWindow extends SoloWindow {
 
 	private Button logInButton;
 	private Button signUpButton;
 	private Button exitButton;
-
-	private ActionListener actionListener;
 
 	public LaunchWindow() {
 		initialize();
@@ -73,24 +70,6 @@ public class LaunchWindow implements SoloWindow {
 	public Button getExitButton() {
 		return exitButton;
 	}
-	
-	@Override
-	public void show() {
-		frame.setVisible(true);
-		frame.setLocationRelativeTo(null);
-		frame.toFront();
-	}
-
-	@Override
-	public void hide() {
-		frame.setVisible(false);
-	}
-
-	@Override
-	public void close() {
-		frame.setVisible(false);
-		frame.dispose();
-	}
 
 	@Override
 	public void setActionListener(ActionListener actionListener) {
@@ -99,10 +78,5 @@ public class LaunchWindow implements SoloWindow {
 		logInButton.addActionListener(actionListener);
 		signUpButton.addActionListener(actionListener);
 		exitButton.addActionListener(actionListener);
-	}
-
-	@Override
-	public ActionListener getActionListener() {
-		return actionListener;
 	}
 }

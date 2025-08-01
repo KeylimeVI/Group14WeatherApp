@@ -12,17 +12,14 @@ import javax.swing.JPanel;
 
 import view.visual_pattern.ButtonPanel;
 import view.visual_pattern.QueryC;
+import view.visual_pattern.SoloWindow;
 
-public class LogInWindow implements SoloWindow {
-
-	private JFrame frame;
+public class LogInWindow extends SoloWindow {
 
 	private Button logInButton;
 	private Button backButton;
 	private QueryC<TextField> queryUsername;
 	private QueryC<TextField> queryPassword;
-
-	private ActionListener actionListener;
 
 	public LogInWindow() {
 		initialize();
@@ -81,33 +78,10 @@ public class LogInWindow implements SoloWindow {
 	}
 
 	@Override
-	public void show() {
-		frame.setVisible(true);
-		frame.setLocationRelativeTo(null);
-		frame.toFront();
-	}
-
-	@Override
-	public void hide() {
-		frame.setVisible(false);
-	}
-
-	@Override
-	public void close() {
-		frame.setVisible(false);
-		frame.dispose();
-	}
-
-	@Override
 	public void setActionListener(ActionListener actionListener) {
 		this.actionListener = actionListener;
 
 		logInButton.addActionListener(actionListener);
 		backButton.addActionListener(actionListener);
-	}
-
-	@Override
-	public ActionListener getActionListener() {
-		return actionListener;
 	}
 }

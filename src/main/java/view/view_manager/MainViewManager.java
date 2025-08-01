@@ -48,7 +48,7 @@ public abstract class MainViewManager {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO: add actions for MainWindow
-				switch (mainWindow.getAction()) {
+				switch (mainWindow.getCurrentAction()) {
 					case EXIT:
 						closeAllMain();
 				}

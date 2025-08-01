@@ -9,21 +9,17 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
-import view.SoloWindow;
 import view.visual_pattern.ButtonPanel;
+import view.visual_pattern.SoloWindow;
 
-public class MainWindow implements SoloWindow {
-
-	private JFrame frame;
+public class MainWindow extends SoloWindow {
 
 	private Button exitButton;
 
-	private ActionListener actionListener;
-
-	public enum MainAction {
+	public enum Action {
 		EXIT
 	}
-	private MainAction currentAction = MainAction.EXIT;
+	private Action currentAction = Action.EXIT;
 
 	public MainWindow() {
 		initialize();
@@ -49,7 +45,7 @@ public class MainWindow implements SoloWindow {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				currentAction = MainAction.EXIT;
+				currentAction = Action.EXIT;
 			}
 		});
 
@@ -60,26 +56,8 @@ public class MainWindow implements SoloWindow {
 		frame.add(buttonPanel, BorderLayout.SOUTH);
 	}
 
-	public MainAction getAction() {
+	public Action getCurrentAction() {
 		return currentAction;
-	}
-
-	@Override
-	public void show() {
-		frame.setVisible(true);
-		frame.setLocationRelativeTo(null);
-		frame.toFront();
-	}
-
-	@Override
-	public void hide() {
-		frame.setVisible(false);
-	}
-
-	@Override
-	public void close() {
-		frame.setVisible(false);
-		frame.dispose();
 	}
 
 	@Override
@@ -89,11 +67,4 @@ public class MainWindow implements SoloWindow {
 
 		exitButton.addActionListener(actionListener);
 	}
-
-	@Override
-	public ActionListener getActionListener() {
-		
-		return actionListener;
-	}
-	
 }

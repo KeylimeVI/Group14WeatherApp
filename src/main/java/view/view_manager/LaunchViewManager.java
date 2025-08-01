@@ -51,14 +51,16 @@ public abstract class LaunchViewManager {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Object evtSource = e.getSource();
-
-				if (evtSource == launchWindow.getExitButton()) {
-					closeAll();
-				} else if (evtSource == launchWindow.getLogInButton()) {
-					view(ViewState.LOGIN);
-				} else if (evtSource == launchWindow.getSignUpButton()) {
-					view(ViewState.SIGNUP);
+				switch (launchWindow.getCurrentAction()) {
+					case LOGIN:
+						view(ViewState.LOGIN);
+						break;
+					case SIGNUP:
+						view(ViewState.SIGNUP);
+						break;
+					case EXIT:
+						closeAll();
+						break;
 				}
 			}
 		};
@@ -68,17 +70,19 @@ public abstract class LaunchViewManager {
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Object evtSource = e.getSource();
+				
+				switch (logInWindow.getCurrentAction()) {
+					case LOGIN:
+						String username = logInWindow.getUsernameString();
+						String password = logInWindow.getPasswordString();
 
-				if (evtSource == logInWindow.getBackButton()) {
-					view(ViewState.LAUNCH);
-				} else if (evtSource == logInWindow.getLogInButton()) {
-					String username = logInWindow.getUsernameString();
-					String password = logInWindow.getPasswordString();
-					
-					if (logInController.attemptLogIn(username, password)) {
+						if (logInController.attemptLogIn(username, password)) {
 						view(ViewState.MAIN);
-					}
+						}
+						break;
+					case BACK:
+						view(ViewState.LAUNCH);
+						break;
 				}
 			}
 		};
@@ -89,15 +93,16 @@ public abstract class LaunchViewManager {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Object evtSource = e.getSource();
+				switch (signUpWindow.getCurrentAction()) {
+					case SIGNUP:
+						String username = signUpWindow.getUsernameString();
+						String password = signUpWindow.getPasswordString();
 
-				if (evtSource == signUpWindow.getBackButton()) {
-					view(ViewState.LAUNCH);
-				} else if (evtSource == signUpWindow.getSignUpButton()) {
-					String username = signUpWindow.getUsernameString();
-					String password = signUpWindow.getPasswordString();
-
-					signUpController.attemptSignUp(username, password);
+						signUpController.attemptSignUp(username, password);
+						break;
+					case BACK:
+						view(ViewState.LAUNCH);
+						break;
 				}
 			}
 		};

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
@@ -18,6 +19,12 @@ public class LaunchWindow extends SoloWindow {
 	private Button logInButton;
 	private Button signUpButton;
 	private Button exitButton;
+
+	public enum Actions {
+		EXIT, LOGIN, SIGNUP
+	}
+
+	private Actions currentAction = Actions.EXIT;
 
 	public LaunchWindow() {
 		initialize();
@@ -55,20 +62,13 @@ public class LaunchWindow extends SoloWindow {
 		buttonPanel.add(signUpButton);
 		buttonPanel.add(exitButton);
 
+		setLocalButtonListeners();
 		frame.add(titleHolder, BorderLayout.NORTH);
 		frame.add(buttonPanel, BorderLayout.SOUTH);
 	}
 
-	public Button getLogInButton() {
-		return logInButton;
-	}
-
-	public Button getSignUpButton() {
-		return signUpButton;
-	}
-
-	public Button getExitButton() {
-		return exitButton;
+	public Actions getCurrentAction() {
+		return currentAction;
 	}
 
 	@Override
@@ -78,5 +78,32 @@ public class LaunchWindow extends SoloWindow {
 		logInButton.addActionListener(actionListener);
 		signUpButton.addActionListener(actionListener);
 		exitButton.addActionListener(actionListener);
+	}
+
+	@Override
+	protected void setLocalButtonListeners() {
+		logInButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				currentAction = Actions.LOGIN;
+			}
+		});
+
+		signUpButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				currentAction = Actions.SIGNUP;
+			}
+		});
+
+		exitButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				currentAction = Actions.EXIT;
+			}
+		});
 	}
 }

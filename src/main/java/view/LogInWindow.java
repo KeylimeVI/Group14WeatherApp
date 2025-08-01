@@ -3,6 +3,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.TextField;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
@@ -20,6 +21,11 @@ public class LogInWindow extends SoloWindow {
 	private Button backButton;
 	private QueryC<TextField> queryUsername;
 	private QueryC<TextField> queryPassword;
+
+	public enum Actions {
+		LOGIN, BACK
+	}
+	private Actions currentAction = Actions.BACK;
 
 	public LogInWindow() {
 		initialize();
@@ -56,17 +62,10 @@ public class LogInWindow extends SoloWindow {
 		buttonPanel.add(logInButton);
 		buttonPanel.add(backButton);
 		
+		setLocalButtonListeners();
 		frame.add(titleHolder, BorderLayout.NORTH);
 		frame.add(buttonPanel, BorderLayout.SOUTH);
 		frame.add(questionHolder, BorderLayout.CENTER);
-	}
-
-	public Button getLogInButton() {
-		return logInButton;
-	}
-
-	public Button getBackButton() {
-		return backButton;
 	}
 
 	public String getUsernameString() {
@@ -77,11 +76,36 @@ public class LogInWindow extends SoloWindow {
 		return queryPassword.getComponent().getText();
 	}
 
+	public Actions getCurrentAction() {
+		return currentAction;
+	}
+
 	@Override
 	public void setActionListener(ActionListener actionListener) {
 		this.actionListener = actionListener;
 
 		logInButton.addActionListener(actionListener);
 		backButton.addActionListener(actionListener);
+	}
+
+	@Override
+	protected void setLocalButtonListeners() {
+		
+		logInButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				currentAction = Actions.LOGIN;
+			}
+		});
+		backButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				currentAction = Actions.BACK;
+			}
+		});
 	}
 }

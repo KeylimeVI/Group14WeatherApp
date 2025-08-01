@@ -27,6 +27,8 @@ public abstract class SoloWindow {
 
 	public abstract void setActionListener(ActionListener actionListener);
 
+	protected abstract void setLocalButtonListeners();
+
 	public ActionListener getActionListener() {
 		return actionListener;
 	};

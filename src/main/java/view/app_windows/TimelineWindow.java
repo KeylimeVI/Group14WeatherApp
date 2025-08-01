@@ -18,4 +18,10 @@ public class TimelineWindow extends SoloWindow {
 	public void setActionListener(ActionListener actionListener) {
 		this.actionListener = actionListener;
 	}
+
+	@Override
+	protected void setLocalButtonListeners() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'setLocalButtonListeners'");
+	}
 }

@@ -16,10 +16,10 @@ public class MainWindow extends SoloWindow {
 
 	private Button exitButton;
 
-	public enum Action {
+	public enum Actions {
 		EXIT
 	}
-	private Action currentAction = Action.EXIT;
+	private Actions currentAction = Actions.EXIT;
 
 	public MainWindow() {
 		initialize();
@@ -41,22 +41,15 @@ public class MainWindow extends SoloWindow {
 
 		// ~~~ Exit Button ~~~ //
 		exitButton = new Button("Exit");
-		exitButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				currentAction = Action.EXIT;
-			}
-		});
-
 		ButtonPanel buttonPanel = new ButtonPanel();
 
 		buttonPanel.add(exitButton);
 
+		setLocalButtonListeners();
 		frame.add(buttonPanel, BorderLayout.SOUTH);
 	}
 
-	public Action getCurrentAction() {
+	public Actions getCurrentAction() {
 		return currentAction;
 	}
 
@@ -66,5 +59,17 @@ public class MainWindow extends SoloWindow {
 		this.actionListener = actionListener;
 
 		exitButton.addActionListener(actionListener);
+	}
+
+	@Override
+	protected void setLocalButtonListeners() {
+		
+		exitButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				currentAction = Actions.EXIT;
+			}
+		});
 	}
 }

@@ -17,7 +17,7 @@ public class ViewManager {
 			public void view(ViewState viewState) {
 				switch (viewState) {
 					case MAIN:
-						mainViewManager.getMainWindow().show();
+						getMainWindow().show();
 						break;
 					case TIMELINE:
 						break;

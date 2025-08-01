@@ -9,8 +9,10 @@ import view.app_windows.TimelineWindow;
 public abstract class MainViewManager {
 	
 	private MainWindow mainWindow;
-
 	private ActionListener mainWindowListener;
+
+	private TimelineWindow timelineWindow;
+	private ActionListener timelineListener;
 
 	public enum ViewState {
 		MAIN, TIMELINE
@@ -24,6 +26,10 @@ public abstract class MainViewManager {
 
 		mainWindowListener = makeMainWindowListener();
 		mainWindow.setActionListener(mainWindowListener);
+
+		timelineWindow = new TimelineWindow();
+		timelineListener = makeTimelineWindowListener();
+		timelineWindow.setActionListener(timelineListener);
 	}
 
 	public abstract void view(ViewState viewState);
@@ -46,6 +52,16 @@ public abstract class MainViewManager {
 					case EXIT:
 						closeAllMain();
 				}
+			}
+		};
+	}
+
+	private ActionListener makeTimelineWindowListener() {
+		return new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				throw new UnsupportedOperationException("timelineWindowListener has no ears");
 			}
 		};
 	}

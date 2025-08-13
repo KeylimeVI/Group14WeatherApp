@@ -2,6 +2,7 @@ package view.app_windows;
 
 import java.awt.BorderLayout;
 import java.awt.Button;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -9,7 +10,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
+import data_access.ConfigAccess;
 import view.visual_pattern.ButtonPanel;
+import view.visual_pattern.SingleSelectTabs;
 import view.visual_pattern.SoloWindow;
 
 public class MainWindow extends SoloWindow {
@@ -26,18 +29,47 @@ public class MainWindow extends SoloWindow {
 	}
 
 	private void initialize() {
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		int frameY = (int) screenSize.getHeight() / 2;
-		int frameX = (int) ((double) frameY * 1.5);
 
+		// ~~~ Config ~~~ //
+		ConfigAccess config = new ConfigAccess(null);
+		Color BGColor = config.getBGColor();
+		Color HLColor = config.getHLColor();
+		Color midHLColor = config.getMidHLColor();
+
+		// ~~~ Setting up the frame ~~~ //
 		frame = new JFrame();
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		frame.setTitle("Weather Or Not");
-		frame.setSize(frameX, frameY);
 		frame.setResizable(false);
 		frame.setLayout(new BorderLayout(12, 12));
+
+		// ~~~ View Tabs ~~~ //
+		SingleSelectTabs viewTabs = new SingleSelectTabs(BGColor, HLColor, midHLColor) {
+
+			@Override
+			public void onClick() {
+				switch (getCurrentTabIndex()) {
+					// TODO: implement the 
+					case 0:
+						System.out.println("Home");
+						break;
+					case 1:
+						System.out.println("Calendar");
+						break;
+					case 2:
+						System.out.println("Settings");
+						break;
+				}
+			}
+			
+		};
+		viewTabs.addTab("Home");
+		viewTabs.addTab("Calendar");
+		viewTabs.addTab("Settings");
+		
+		viewTabs.selectSingleTab(0);
 
 		// ~~~ Exit Button ~~~ //
 		exitButton = new Button("Exit");
@@ -46,7 +78,10 @@ public class MainWindow extends SoloWindow {
 		buttonPanel.add(exitButton);
 
 		setLocalButtonListeners();
+
+		frame.add(viewTabs);
 		frame.add(buttonPanel, BorderLayout.SOUTH);
+		frame.pack();
 	}
 
 	public Actions getCurrentAction() {

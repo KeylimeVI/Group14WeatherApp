@@ -15,6 +15,10 @@ import view.visual_pattern.SoloWindow;
 
 public class MainWindow extends SoloWindow {
 
+	private Color BGColor;
+	private Color HLColor;
+	private Color midHLColor;
+
 	private Button exitButton;
 
 	public enum Actions {
@@ -30,9 +34,9 @@ public class MainWindow extends SoloWindow {
 
 		// ~~~ Config ~~~ //
 		ConfigAccess config = new ConfigAccess(null);
-		Color BGColor = config.getBGColor();
-		Color HLColor = config.getHLColor();
-		Color midHLColor = config.getMidHLColor();
+		BGColor = config.getBGColor();
+		HLColor = config.getHLColor();
+		midHLColor = config.getMidHLColor();
 
 		// ~~~ Setting up the frame ~~~ //
 		frame = new JFrame();
@@ -69,6 +73,10 @@ public class MainWindow extends SoloWindow {
 		
 		viewTabs.selectSingleTab(0);
 
+		// ~~~ Calendar ~~~ //
+		// TODO: refactor this and also this should only show when in the calendar tab
+		CalendarPanel calendarPanel = new CalendarPanel(BGColor, HLColor, midHLColor);
+
 		// ~~~ Exit Button ~~~ //
 		exitButton = new Button("Exit");
 		ButtonPanel buttonPanel = new ButtonPanel();
@@ -77,7 +85,8 @@ public class MainWindow extends SoloWindow {
 
 		setLocalButtonListeners();
 
-		frame.add(viewTabs);
+		frame.add(viewTabs, BorderLayout.NORTH);
+		frame.add(calendarPanel, BorderLayout.CENTER);
 		frame.add(buttonPanel, BorderLayout.SOUTH);
 		frame.pack();
 	}

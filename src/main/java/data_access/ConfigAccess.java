@@ -35,7 +35,7 @@ public class ConfigAccess {
 	 */
 	public Color getBGColor() {
 		// TODO: load from file
-		return new Color(0xffffff);
+		return new Color(0x002000);
 	}
 
 	/**

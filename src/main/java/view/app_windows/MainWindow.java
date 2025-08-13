@@ -49,7 +49,7 @@ public class MainWindow extends SoloWindow {
 			@Override
 			public void onClick() {
 				switch (getCurrentTabIndex()) {
-					// TODO: implement the 
+					// TODO: implement the tab switching
 					case 0:
 						System.out.println("Home");
 						break;

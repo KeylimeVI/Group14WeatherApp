@@ -109,5 +109,8 @@ public abstract class TabsPanel extends JPanel {
 	 */
 	protected abstract void followClick(int index);
 
+	/**
+	 * A method run after clicking a tab and after {@code followClick()}
+	 */
 	public abstract void onClick();
 }

@@ -28,9 +28,10 @@ public abstract class SingleSelectTabs extends TabsPanel {
 
 	/**
 	 * Selects a tab; highlights one tab and dehighlights all others.
+	 * Purely visual.
 	 * @param index
 	 */
-	private void selectSingleTab(int index) {
+	public void selectSingleTab(int index) {
 		getCurrentTab().dehighlight();
 		currentTab = index;
 		tabs.get(index).highlight();

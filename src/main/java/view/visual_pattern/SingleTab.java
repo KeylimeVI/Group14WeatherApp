@@ -43,17 +43,16 @@ public abstract class SingleTab extends JPanel {
 		labelPanel = new JPanel();
 		label = new JLabel(text);
 		labelPanel.add(label);
-		labelPanel.setBackground(BGColor);
 		add(labelPanel);
 
 		highlight = new JPanel();
-		highlight.setBackground(BGColor);
 		Dimension hlSize = new Dimension(labelPanel.getPreferredSize().width, HIGHLIGHT_SIZE);
 		highlight.setPreferredSize(hlSize);
 		highlight.setMinimumSize(hlSize);
 		highlight.setMaximumSize(hlSize);
 		add(highlight);
 
+		setColors(BGColor, HLColor, midHLColor);
 		updateTextColor();
 
 		addMouseListener(new MouseListener() {
@@ -128,13 +127,10 @@ public abstract class SingleTab extends JPanel {
 		this.midHLColor = midHLColor;
 		
 		if (isHighlighted) {
-			highlight.setBackground(HLColor);
-			labelPanel.setBackground(midHLColor);
+			highlight();
 		} else {
-			highlight.setBackground(BGColor);
-			labelPanel.setBackground(BGColor);
+			dehighlight();
 		}
-		updateTextColor();
 	}
 
 	/**

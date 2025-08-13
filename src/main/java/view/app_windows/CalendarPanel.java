@@ -29,7 +29,7 @@ public class CalendarPanel extends JPanel {
 
 		weeks = new Vector<CalendarWeekPanel>();
 
-		setLayout(new GridLayout(weekCount, 1));
+		setLayout(new GridLayout(weekCount, 1, 0, 12));
 
 		for (int i = 0; i < weekCount; i++) {
 			CalendarWeekPanel newWeek = new CalendarWeekPanel(BGColor, HLColor, midHLColor);
@@ -42,5 +42,28 @@ public class CalendarPanel extends JPanel {
 		setPreferredSize(size);
 		setMinimumSize(size);
 		setMaximumSize(size);	
+	}
+
+	/**
+	 * Updates all the colors from the attributes
+	 */
+	public void updateColors() {
+		int weekCount = weeks.size();
+		for (int i = 0; i < weekCount; i++) {
+			weeks.get(i).updateColors();
+		}
+	}
+
+	/**
+	 * Set and update the colors of the day
+	 * @param BGColor
+	 * @param HLColor
+	 * @param midHLColor
+	 */
+	public void setColors(Color BGColor, Color HLColor, Color midHLColor) {
+		this.BGColor = BGColor;
+		this.HLColor = HLColor;
+		this.midHlColor = midHLColor;
+		updateColors();
 	}
 }

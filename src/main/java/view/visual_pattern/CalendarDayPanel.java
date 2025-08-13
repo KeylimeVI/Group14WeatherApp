@@ -20,9 +20,7 @@ public class CalendarDayPanel extends JPanel {
 
 	private void initialize(String text, Color BGColor, Color HLColor, Color midHLColor) {
 
-		this.BGColor = BGColor;
-		this.HLColor = HLColor;
-		this.midHlColor = midHLColor;
+		setColors(BGColor, HLColor, midHLColor);
 
 		// TODO
 		label = new JLabel(text);
@@ -36,9 +34,22 @@ public class CalendarDayPanel extends JPanel {
 	}
 
 	/**
-	 * Sets all the colors from the attributes
+	 * Updates all the colors from the attributes
 	 */
 	public void updateColors() {
 		setBackground(BGColor);
+	}
+
+	/**
+	 * Set and update the colors of the day
+	 * @param BGColor
+	 * @param HLColor
+	 * @param midHLColor
+	 */
+	public void setColors(Color BGColor, Color HLColor, Color midHLColor) {
+		this.BGColor = BGColor;
+		this.HLColor = HLColor;
+		this.midHlColor = midHLColor;
+		updateColors();
 	}
 }

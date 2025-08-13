@@ -45,4 +45,27 @@ public class CalendarWeekPanel extends JPanel {
 	public CalendarDayPanel getCalendarDayPanel(int index) {
 		return days.get(index);
 	}
+
+	/**
+	 * Updates all the colors from the attributes
+	 */
+	public void updateColors() {
+		int dayCount = days.size();
+		for (int i = 0; i < dayCount; i++) {
+			days.get(i).updateColors();
+		}
+	}
+
+	/**
+	 * Set and update the colors of the day
+	 * @param BGColor
+	 * @param HLColor
+	 * @param midHLColor
+	 */
+	public void setColors(Color BGColor, Color HLColor, Color midHLColor) {
+		this.BGColor = BGColor;
+		this.HLColor = HLColor;
+		this.midHlColor = midHLColor;
+		updateColors();
+	}
 }

@@ -2,8 +2,6 @@ package view.visual_pattern;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.Vector;
 
 import javax.swing.JPanel;
@@ -27,36 +25,6 @@ public abstract class TabsPanel extends JPanel {
 		tabs = new Vector<>();
 
 		setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
-
-		addMouseListener(new MouseListener() {
-		
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				onClick();
-			}
-		
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// do nothing
-			}
-		
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// do nothing
-			}
-		
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// do nothing
-				System.out.println("asd");
-			}
-		
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// do nothing
-			}
-			
-		});
 	}
 	
 	/**
@@ -101,6 +69,14 @@ public abstract class TabsPanel extends JPanel {
 		tabs.add(newTab);
 		add(newTab);
 	};
+
+	/**
+	 * Clicks a tab in the code instead of with the mouse.
+	 * @param index the index of the tab you want to click
+	 */
+	public void clickTab(int index) {
+		getTab(index).onClick();
+	}
 
 	/**
 	 * A method run immediately after clicking a tab and

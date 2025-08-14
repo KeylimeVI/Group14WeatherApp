@@ -14,7 +14,7 @@ public class Splash extends JFrame {
 	private JLabel label;
 
 	public Splash() throws IOException {
-		BufferedImage splashImage = ImageIO.read(new File("/home/keylime/IdeaProjects/Group14WeatherApp2/images/Splash.png"));
+		BufferedImage splashImage = ImageIO.read(new File("images\\Splash.png"));
 		label = new JLabel(new ImageIcon(splashImage));
 		add(label);
 		setSize(splashImage.getWidth(), splashImage.getHeight());

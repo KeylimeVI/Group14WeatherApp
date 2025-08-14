@@ -19,6 +19,7 @@ public class MainWindow extends SoloWindow {
 	private Color HLColor;
 	private Color midHLColor;
 
+	private SingleSelectTabs viewTabs;
 	private MainHome mainHome;
 
 	private Button exitButton;
@@ -57,7 +58,7 @@ public class MainWindow extends SoloWindow {
 		frame.setLayout(new BorderLayout(12, 12));
 
 		// ~~~ View Tabs ~~~ //
-		SingleSelectTabs viewTabs = new SingleSelectTabs(BGColor, HLColor, midHLColor) {
+		viewTabs = new SingleSelectTabs(BGColor, HLColor, midHLColor) {
 
 			@Override
 			public void onClick() {
@@ -135,6 +136,18 @@ public class MainWindow extends SoloWindow {
 			}
 			
 		};
+	}
+
+	public void setColors(Color BGColor, Color HLColor, Color midHLColor) {
+		this.BGColor = BGColor;
+		this.HLColor = HLColor;
+		this.midHLColor = midHLColor;
+
+		frame.getContentPane().setBackground(BGColor);
+		frame.getRootPane().setBackground(BGColor);
+		
+		mainHome.setColors(BGColor);
+		viewTabs.setColors(BGColor, HLColor, midHLColor);
 	}
 
 	@Override

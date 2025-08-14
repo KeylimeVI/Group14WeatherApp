@@ -68,9 +68,6 @@ public class MainWindow extends SoloWindow {
 						System.out.println("Home");
 						break;
 					case 1:
-						System.out.println("Calendar");
-						break;
-					case 2:
 						System.out.println("Settings");
 						break;
 				}
@@ -78,19 +75,12 @@ public class MainWindow extends SoloWindow {
 			
 		};
 		viewTabs.addTab("Home");
-		viewTabs.addTab("Calendar");
 		viewTabs.addTab("Settings");
 		
 		viewTabs.selectSingleTab(0);
 
 		// ~~~ Home ~~~ //
 		mainHome = initMainHome(BGColor);
-
-		// ~~~ Calendar ~~~ //
-		/*
-		// refactor this and also this should only show when in the calendar tab
-		CalendarPanel calendarPanel = new CalendarPanel(BGColor, HLColor, midHLColor);
-		*/
 
 		// ~~~ Exit Button ~~~ //
 		exitButton = new Button("Exit");
@@ -101,7 +91,6 @@ public class MainWindow extends SoloWindow {
 		setLocalButtonListeners();
 
 		frame.add(viewTabs, BorderLayout.NORTH);
-		// frame.add(calendarPanel, BorderLayout.CENTER);
 		frame.add(mainHome, BorderLayout.CENTER);
 		frame.add(buttonPanel, BorderLayout.SOUTH);
 		frame.pack();

@@ -11,8 +11,6 @@ public class LogInCase implements LogInController {
 		System.out.println("You are:\t\t" + username);
 		System.out.println("Your password is:\t" + "*".repeat(password.length()));
 
-		System.out.println("LogInCase is not implemented properly yet.");
-
 		if (UserHandler.exist(username)) {
 			if (UserHandler.passwordCorrect(username, password)) {
 				System.out.println("login successful");

@@ -134,7 +134,8 @@ public class WeatherController {
         final JSONArray results = obj.getJSONArray("results");
 
         if (results.length() > 0) {
-            final double elevation = results.getJSONObject(0).getDouble("elevation");
+            final JSONObject firstResult = results.getJSONObject(0);
+            final double elevation = firstResult.optDouble("elevation", 0.0);
             location.setElevation(elevation);
         }
     }

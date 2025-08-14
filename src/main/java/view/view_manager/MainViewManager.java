@@ -46,7 +46,6 @@ public abstract class MainViewManager {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO: add actions for MainWindow
 				switch (mainWindow.getCurrentAction()) {
 					case EXIT:
 						closeAllMain();
@@ -76,17 +75,6 @@ public abstract class MainViewManager {
 
 	public WeatherWindow getWeatherWindow() {
 		return weatherWindow;
-	}
-
-	private ActionListener makeTimelineWindowListener() {
-		return new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO: add actions for TimelineWindow
-				throw new UnsupportedOperationException("timelineWindowListener has no ears");
-			}
-		};
 	}
 }
 

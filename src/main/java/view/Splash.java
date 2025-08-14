@@ -17,7 +17,7 @@ public class Splash extends JFrame {
 		BufferedImage splashImage = ImageIO.read(new File("images\\Splash.png"));
 		label = new JLabel(new ImageIcon(splashImage));
 		add(label);
-		setSize(500, 500);
+		setSize(splashImage.getWidth(), splashImage.getHeight());
 		setUndecorated(true);
 		setVisible(true);
 		setLocationRelativeTo(null);

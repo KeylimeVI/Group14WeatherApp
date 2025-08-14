@@ -39,6 +39,10 @@ public abstract class MainViewManager {
 
 	public void closeAllMain() {
 		mainWindow.close();
+		tripPlannerWindow.setVisible(false);
+		tripPlannerWindow.dispose();
+		weatherWindow.setVisible(false);
+		weatherWindow.dispose();
 	}
 
 	private ActionListener makeMainWindowListener() {

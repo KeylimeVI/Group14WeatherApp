@@ -62,7 +62,7 @@ public class WeatherLocation {
     }
 
     public void setElevation(final double elevation) {
-        this.elevation = elevation;
+        this.elevation = 0.0;
     }
 
     public String getDescription() {

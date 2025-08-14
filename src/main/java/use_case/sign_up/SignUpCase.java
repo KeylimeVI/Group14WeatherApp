@@ -10,6 +10,14 @@ public class SignUpCase implements SignUpController {
 			System.out.println("user already exist");
 			return false;
 		}
+		else if (username.equals("")) {
+			System.out.println("username is empty");
+			return false;
+		}
+		else if (password.equals("")) {
+			System.out.println("password is empty");
+			return false;
+		}
 
 		UserHandler.add(username, password);
 		return true;

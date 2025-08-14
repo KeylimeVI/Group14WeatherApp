@@ -16,16 +16,18 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import entity.WeatherLocation;
+import use_case.weather.WeatherAdvisor;
 import use_case.weather.WeatherController;
 
 /**
  * WeatherWindow provides a GUI to fetch, display, and track
- * weather and elevation information for a given location.
+ * weather and elevation information for a given location,
+ * including nearby weather and recommendations.
  */
 public class WeatherWindow extends JFrame {
 
     private static final int WINDOW_WIDTH = 400;
-    private static final int WINDOW_HEIGHT = 400;
+    private static final int WINDOW_HEIGHT = 500;
     private static final int BORDER_GAP = 10;
     private static final int INPUT_HGAP = 5;
     private static final int INPUT_VGAP = 5;
@@ -41,6 +43,7 @@ public class WeatherWindow extends JFrame {
     private final JButton nearbyButton;
     private final JTextArea resultArea;
     private final JTextArea historyArea;
+    private final JTextArea recommendationArea;
     private final WeatherController controller;
 
     public WeatherWindow() {
@@ -58,6 +61,9 @@ public class WeatherWindow extends JFrame {
 
         historyArea = new JTextArea(HISTORY_ROWS, HISTORY_COLUMNS);
         historyArea.setEditable(false);
+
+        recommendationArea = new JTextArea(RESULT_ROWS, RESULT_COLUMNS);
+        recommendationArea.setEditable(false);
 
         fetchButton.addActionListener(this::onFetchWeather);
         nearbyButton.addActionListener(this::onShowNearbyWeather);
@@ -87,7 +93,8 @@ public class WeatherWindow extends JFrame {
 
         final JPanel displayPanel = new JPanel(new BorderLayout(BORDER_GAP, BORDER_GAP));
         displayPanel.add(new JScrollPane(resultArea), BorderLayout.NORTH);
-        displayPanel.add(new JLabel("History:"), BorderLayout.CENTER);
+        displayPanel.add(new JScrollPane(recommendationArea), BorderLayout.CENTER);
+        displayPanel.add(new JLabel("History:"), BorderLayout.SOUTH);
         displayPanel.add(new JScrollPane(historyArea), BorderLayout.SOUTH);
 
         add(displayPanel, BorderLayout.SOUTH);
@@ -106,6 +113,7 @@ public class WeatherWindow extends JFrame {
             final WeatherLocation location = controller.getWeather(locationName, latitude, longitude);
 
             resultArea.setText(buildLocationText(location));
+            recommendationArea.setText(WeatherAdvisor.getRecommendations(location));
             updateHistory();
         }
         catch (NumberFormatException parseEx) {
@@ -139,7 +147,6 @@ public class WeatherWindow extends JFrame {
 
             final WeatherLocation center = new WeatherLocation(locationName, latitude, longitude);
             final List<WeatherLocation> nearbyList = controller.getNearbyWeather(center, 5);
-            // 5 km radius
 
             final StringBuilder sb = new StringBuilder();
             for (WeatherLocation loc : nearbyList) {
@@ -147,8 +154,6 @@ public class WeatherWindow extends JFrame {
             }
 
             resultArea.setText(sb.toString());
-
-            // Add nearby locations to history
             nearbyList.forEach(controller.getHistory()::add);
             updateHistory();
         }

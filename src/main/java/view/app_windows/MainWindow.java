@@ -19,12 +19,18 @@ public class MainWindow extends SoloWindow {
 	private Color HLColor;
 	private Color midHLColor;
 
+	private MainHome mainHome;
+
 	private Button exitButton;
 
 	public enum Actions {
-		EXIT
+		EXIT, PLANNER, WEATHER
 	}
 	private Actions currentAction = Actions.EXIT;
+
+	public enum Tabs {
+		HOME, SETTINGS
+	}
 
 	public MainWindow() {
 		initialize();
@@ -40,6 +46,9 @@ public class MainWindow extends SoloWindow {
 
 		// ~~~ Setting up the frame ~~~ //
 		frame = new JFrame();
+
+		frame.getContentPane().setBackground(BGColor);
+		frame.getRootPane().setBackground(BGColor);
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -73,6 +82,9 @@ public class MainWindow extends SoloWindow {
 		
 		viewTabs.selectSingleTab(0);
 
+		// ~~~ Home ~~~ //
+		mainHome = initMainHome(BGColor);
+
 		// ~~~ Calendar ~~~ //
 		// TODO: refactor this and also this should only show when in the calendar tab
 		CalendarPanel calendarPanel = new CalendarPanel(BGColor, HLColor, midHLColor);
@@ -87,6 +99,7 @@ public class MainWindow extends SoloWindow {
 
 		frame.add(viewTabs, BorderLayout.NORTH);
 		frame.add(calendarPanel, BorderLayout.CENTER);
+		frame.add(mainHome, BorderLayout.CENTER);
 		frame.add(buttonPanel, BorderLayout.SOUTH);
 		frame.pack();
 	}
@@ -95,12 +108,40 @@ public class MainWindow extends SoloWindow {
 		return currentAction;
 	}
 
+	public void viewTab(Tabs tab) {
+		switch (tab) {
+			case HOME:
+				break;
+			case SETTINGS:
+				break;
+		}
+	}
+
+	private MainHome initMainHome(Color BGColor) {
+		return new MainHome(BGColor) {
+
+			@Override
+			public void onClick(PanelButtons buttonClicked) {
+				switch (buttonClicked) {
+					case PLANNER:
+						currentAction = Actions.PLANNER;
+						break;
+					case WEATHER:
+						currentAction = Actions.WEATHER;
+						break;
+				}
+			}
+			
+		};
+	}
+
 	@Override
 	public void setActionListener(ActionListener actionListener) {
 
 		this.actionListener = actionListener;
 
 		exitButton.addActionListener(actionListener);
+		mainHome.setActionListener(actionListener);
 	}
 
 	@Override

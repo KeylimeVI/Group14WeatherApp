@@ -100,7 +100,6 @@ public class WeatherWindow extends JFrame {
         add(displayPanel, BorderLayout.SOUTH);
 
         setLocationRelativeTo(null);
-        setVisible(true);
     }
 
     private void onFetchWeather(final ActionEvent event) {

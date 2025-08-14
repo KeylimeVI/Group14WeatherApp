@@ -66,7 +66,6 @@ public class TripPlannerWindow extends JFrame {
         fetchButton.addActionListener(this::onFetchTripWeather);
 
         setLocationRelativeTo(null);
-        setVisible(true);
     }
 
     private void onFetchTripWeather(final ActionEvent actionEvent) {

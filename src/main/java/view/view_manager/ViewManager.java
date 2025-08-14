@@ -19,8 +19,11 @@ public class ViewManager {
 					case MAIN:
 						getMainWindow().show();
 						break;
-					case TIMELINE:
+					case PLANNER:
+						getTripPlannerWindow().setVisible(true);
 						break;
+					case WEATHER:
+						getWeatherWindow().setVisible(true);
 				}
 			}
 		};
@@ -44,6 +47,12 @@ public class ViewManager {
 						mainViewManager.startMainWindows();
 						mainViewManager.view(MainViewManager.ViewState.MAIN);
 						launchViewManager.closeAll();
+
+						mainViewManager.startTripPlannerWindow();
+						mainViewManager.getTripPlannerWindow().setVisible(false);
+
+						mainViewManager.startWeatherWindow();
+						mainViewManager.getWeatherWindow().setVisible(false);
 						break;
 				}
 			}

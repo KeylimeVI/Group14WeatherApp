@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,51 +19,57 @@ import entity.WeatherLocation;
 import use_case.weather.WeatherController;
 
 /**
- * WeatherWindow provides a simple GUI to fetch and display
+ * WeatherWindow provides a GUI to fetch, display, and track
  * weather and elevation information for a given location.
  */
 public class WeatherWindow extends JFrame {
 
     private static final int WINDOW_WIDTH = 400;
-    private static final int WINDOW_HEIGHT = 300;
+    private static final int WINDOW_HEIGHT = 400;
     private static final int BORDER_GAP = 10;
     private static final int INPUT_HGAP = 5;
     private static final int INPUT_VGAP = 5;
+    private static final int RESULT_ROWS = 5;
+    private static final int RESULT_COLUMNS = 20;
+    private static final int HISTORY_ROWS = 8;
+    private static final int HISTORY_COLUMNS = 20;
 
     private final JTextField latField;
     private final JTextField lonField;
     private final JTextField nameField;
     private final JButton fetchButton;
+    private final JButton nearbyButton;
     private final JTextArea resultArea;
+    private final JTextArea historyArea;
     private final WeatherController controller;
 
-    /**
-     * Constructs a WeatherWindow and initializes GUI components.
-     */
     public WeatherWindow() {
         super("Weather Checker");
         controller = new WeatherController();
 
-        // Initialize components
         nameField = new JTextField();
         latField = new JTextField();
         lonField = new JTextField();
         fetchButton = new JButton("Get Weather");
-        resultArea = new JTextArea();
+        nearbyButton = new JButton("Show Nearby Weather");
+
+        resultArea = new JTextArea(RESULT_ROWS, RESULT_COLUMNS);
         resultArea.setEditable(false);
+
+        historyArea = new JTextArea(HISTORY_ROWS, HISTORY_COLUMNS);
+        historyArea.setEditable(false);
+
+        fetchButton.addActionListener(this::onFetchWeather);
+        nearbyButton.addActionListener(this::onShowNearbyWeather);
 
         setupUi();
     }
 
-    /**
-     * Sets up the GUI layout and components.
-     */
     private void setupUi() {
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout(BORDER_GAP, BORDER_GAP));
 
-        // Input panel
         final JPanel inputPanel = new JPanel(new GridLayout(3, 2, INPUT_HGAP, INPUT_VGAP));
         inputPanel.add(new JLabel("Location Name:"));
         inputPanel.add(nameField);
@@ -71,21 +78,24 @@ public class WeatherWindow extends JFrame {
         inputPanel.add(new JLabel("Longitude:"));
         inputPanel.add(lonField);
 
-        fetchButton.addActionListener(this::onFetchWeather);
+        final JPanel buttonPanel = new JPanel();
+        buttonPanel.add(fetchButton);
+        buttonPanel.add(nearbyButton);
 
         add(inputPanel, BorderLayout.NORTH);
-        add(fetchButton, BorderLayout.CENTER);
-        add(new JScrollPane(resultArea), BorderLayout.SOUTH);
+        add(buttonPanel, BorderLayout.CENTER);
+
+        final JPanel displayPanel = new JPanel(new BorderLayout(BORDER_GAP, BORDER_GAP));
+        displayPanel.add(new JScrollPane(resultArea), BorderLayout.NORTH);
+        displayPanel.add(new JLabel("History:"), BorderLayout.CENTER);
+        displayPanel.add(new JScrollPane(historyArea), BorderLayout.SOUTH);
+
+        add(displayPanel, BorderLayout.SOUTH);
 
         setLocationRelativeTo(null);
         setVisible(true);
     }
 
-    /**
-     * Handles the action when the "Get Weather" button is clicked.
-     *
-     * @param event the ActionEvent triggered by the button click
-     */
     private void onFetchWeather(final ActionEvent event) {
         final String locationName = nameField.getText();
 
@@ -95,14 +105,8 @@ public class WeatherWindow extends JFrame {
 
             final WeatherLocation location = controller.getWeather(locationName, latitude, longitude);
 
-            final StringBuilder resultText = new StringBuilder();
-            resultText.append("Location: ").append(location.getName()).append("\n")
-                    .append("Temperature: ").append(location.getTemperature()).append(" Celcius\n")
-                    .append("Elevation: ").append(location.getElevation()).append(" m\n")
-                    .append("Description: ").append(location.getDescription());
-
-            resultArea.setText(resultText.toString());
-
+            resultArea.setText(buildLocationText(location));
+            updateHistory();
         }
         catch (NumberFormatException parseEx) {
             JOptionPane.showMessageDialog(this,
@@ -125,14 +129,61 @@ public class WeatherWindow extends JFrame {
             jsonEx.printStackTrace();
         }
     }
-    
-    /**
-     * Entry point for the WeatherWindow application.
-     *
-     * @param args command-line arguments (not used)
-     */
-    @SuppressWarnings({"checkstyle:UncommentedMain", "checkstyle:SuppressWarnings"})
-    public static void main(final String[] args) {
-        javax.swing.SwingUtilities.invokeLater(WeatherWindow::new);
+
+    private void onShowNearbyWeather(final ActionEvent event) {
+        final String locationName = nameField.getText();
+
+        try {
+            final double latitude = Double.parseDouble(latField.getText());
+            final double longitude = Double.parseDouble(lonField.getText());
+
+            final WeatherLocation center = new WeatherLocation(locationName, latitude, longitude);
+            final List<WeatherLocation> nearbyList = controller.getNearbyWeather(center, 5);
+            // 5 km radius
+
+            final StringBuilder sb = new StringBuilder();
+            for (WeatherLocation loc : nearbyList) {
+                sb.append(buildLocationText(loc)).append("\n----------------\n");
+            }
+
+            resultArea.setText(sb.toString());
+
+            // Add nearby locations to history
+            nearbyList.forEach(controller.getHistory()::add);
+            updateHistory();
+        }
+        catch (NumberFormatException parseEx) {
+            JOptionPane.showMessageDialog(this,
+                    "Please enter valid numbers for latitude and longitude.",
+                    "Input Error",
+                    JOptionPane.WARNING_MESSAGE);
+        }
+        catch (IOException | org.json.JSONException ex) {
+            JOptionPane.showMessageDialog(this,
+                    "Error fetching nearby weather: " + ex.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
+    }
+
+    private String buildLocationText(final WeatherLocation loc) {
+        String savedText = "";
+        if (loc.isSaved()) {
+            savedText = " (Saved)";
+        }
+        return "Location: " + loc.getName() + savedText + "\n"
+                + "Temperature: " + loc.getTemperature() + " Celsius\n"
+                + "Elevation: " + loc.getElevation() + " m\n"
+                + "Description: " + loc.getDescription();
+    }
+
+    private void updateHistory() {
+        final List<WeatherLocation> history = controller.getHistory();
+        final StringBuilder sb = new StringBuilder();
+        for (final WeatherLocation loc : history) {
+            sb.append(buildLocationText(loc)).append("\n----------------\n");
+        }
+        historyArea.setText(sb.toString());
     }
 }

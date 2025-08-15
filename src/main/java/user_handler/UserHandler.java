@@ -1,12 +1,10 @@
 package user_handler;
 
+import java.util.HashMap;
 import java.util.Map;
 
-import data_access.UserLoader;
-
 public class UserHandler {
-    
-    private static final Map<String, String> PASSWORD = UserLoader.loadUserMap();
+    private static final Map<String, String> PASSWORD = new HashMap<>();
 
     /**
      * Check if username already exists.

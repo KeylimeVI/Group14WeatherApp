@@ -24,6 +24,9 @@ public class ViewManager {
 						break;
 					case WEATHER:
 						getWeatherWindow().setVisible(true);
+					case LAUNCH:
+						launchViewManager.view(LaunchViewManager.ViewState.LAUNCH);
+						break;
 				}
 			}
 		};

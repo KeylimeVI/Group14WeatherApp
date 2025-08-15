@@ -17,7 +17,7 @@ public abstract class MainViewManager {
 	private WeatherWindow weatherWindow;
 
 	public enum ViewState {
-		MAIN, PLANNER, WEATHER
+		MAIN, PLANNER, WEATHER, LAUNCH
 	}
 
 	public MainViewManager() {
@@ -60,6 +60,9 @@ public abstract class MainViewManager {
 					case WEATHER:
 						view(MainViewManager.ViewState.WEATHER);
 						break;
+					case LOGOUT:
+						view(MainViewManager.ViewState.LAUNCH);
+						closeAllMain();
 				}
 			}
 		};

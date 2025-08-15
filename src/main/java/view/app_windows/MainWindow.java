@@ -29,9 +29,10 @@ public class MainWindow extends SoloWindow {
 	private ButtonPanel buttonPanel;
 
 	private Button exitButton;
+	private Button logOutButton;
 
 	public enum Actions {
-		EXIT, PLANNER, WEATHER
+		EXIT, PLANNER, WEATHER, LOGOUT
 	}
 	private Actions currentAction = Actions.EXIT;
 
@@ -107,6 +108,10 @@ public class MainWindow extends SoloWindow {
 		buttonPanel.setBackground(BGColor);
 
 		buttonPanel.add(exitButton);
+
+		// ~~~ Signout button ~~~ //
+		logOutButton = new Button("Logout");
+		buttonPanel.add(logOutButton);
 
 		setLocalButtonListeners();
 
@@ -203,6 +208,7 @@ public class MainWindow extends SoloWindow {
 		this.actionListener = actionListener;
 
 		exitButton.addActionListener(actionListener);
+		logOutButton.addActionListener(actionListener);
 		mainHome.setActionListener(actionListener);
 	}
 
@@ -216,5 +222,15 @@ public class MainWindow extends SoloWindow {
 				currentAction = Actions.EXIT;
 			}
 		});
+
+		logOutButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				currentAction = Actions.LOGOUT;
+			}
+		});
 	}
+
+
 }

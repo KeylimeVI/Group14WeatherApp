@@ -98,7 +98,9 @@ public abstract class LaunchViewManager {
 						String username = signUpWindow.getUsernameString();
 						String password = signUpWindow.getPasswordString();
 
-						signUpController.attemptSignUp(username, password);
+						if (signUpController.attemptSignUp(username, password)) {
+							view(ViewState.MAIN);
+						}
 						break;
 					case BACK:
 						view(ViewState.LAUNCH);
@@ -107,6 +109,7 @@ public abstract class LaunchViewManager {
 			}
 		};
 	}
+
 
 	public void hideAll() {
 		launchWindow.hide();

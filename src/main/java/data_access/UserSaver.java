@@ -27,6 +27,7 @@ public class UserSaver {
 			FileOutputStream fileOutputStream = new FileOutputStream(file, false);
 			try {
 				fileOutputStream.write(data);
+				fileOutputStream.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
